@@ -1,0 +1,2 @@
+class CarblogDataset:
+    raise NotImplemented
