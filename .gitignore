@@ -10,6 +10,10 @@ tmp/
 
 # data
 texts/*.txt
+index/*.url
+index/*.title
+index/*.date
+index/*.tags
 
 # Jupyter notebook
 .ipynb_checkpoints/
