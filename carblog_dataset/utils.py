@@ -1,12 +1,15 @@
 import csv
 from datetime import datetime
+from glob import glob
 import os
 import re
+import zipfile
 
+sep = os.path.sep
 
 installpath = os.path.dirname(os.path.realpath(__file__))
-text_dir = os.path.abspath('../texts/')
-index_dir = os.path.abspath('../index/')
+text_dir = sep.join(installpath.split(sep)[:-1]) + '{0}texts{0}'.format(sep)
+index_dir = sep.join(installpath.split(sep)[:-1]) + '{0}index{0}'.format(sep)
 num_categories = 27
 
 def load_list(path, dtype=None):
@@ -53,3 +56,73 @@ def parse_tags(line):
     tags = list(csv.reader([line], delimiter=','))[0]
     tags = [strip(s) for s in tags]
     return tags
+
+def check_setup():
+    """
+    Check whether zip files are decompressed or not.
+    If not, it will decompress all zip files automatically.
+    If data files are set, it returns True. Else it will raise runtime error.
+    """
+    text_files = glob('{}/*.txt'.format(text_dir))
+    index_files = glob('{}/*.date'.format(index_dir))
+    if not text_files or not index_files:
+        message = """You should first setup dataset using carblog_dataset.setup function.
+        >>> from carblog_dataset import setup
+        >>> setup(remove_zip=True) # or
+        >>> setup(remove_zip=False)
+        """
+        raise RuntimeError(message)
+    return True
+
+def setup(remove_zip=False, debug=False):
+
+    def unzips(sources, filetype):
+        for source in sources:
+            source = os.path.abspath(source)
+            dest_dir, dest_name = source.rsplit(os.path.sep, 1)
+            unzip(source, dest_dir)
+            if remove_zip:
+                os.remove(source)
+            print('Unzip {} file {}'.format(filetype, source))
+
+    def sort(paths):
+        return sorted(paths, key=lambda x:int(x.split(sep)[-1].split('.')[0]))
+
+    text_sources = sort(glob('{}/*.txt.zip'.format(text_dir)))
+    if debug:
+        text_sources = text_sources[:4]
+    unzips(text_sources, 'text')
+
+    index_sources = sort(glob('{}/*.zip'.format(index_dir)))
+    if debug:
+        index_sources = index_sources[:4]
+    unzips(index_sources, 'index')
+
+    print('done')
+
+def unzip(source, destination):
+    """
+    Arguments
+    ---------
+    source : str
+        zip file address. It doesn't matter absolute path or relative path
+    destination :
+        Directory path of unzip
+    Returns
+    -------
+    flag : Boolean
+        It return True if downloading success else return False
+    """
+
+    abspath = os.path.abspath(destination)
+    dirname = os.path.dirname(abspath)
+    if not os.path.exists(dirname):
+        os.makedirs(dirname)
+
+    try:
+        downloaded = zipfile.ZipFile(source)
+        downloaded.extractall(destination)
+        return True
+    except Exception as e:
+        print(e)
+        return False
