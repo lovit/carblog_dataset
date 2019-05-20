@@ -1,3 +1,4 @@
+from .utils import check_setup
 from .utils import installpath
 from .utils import text_dir, index_dir, num_categories
 
@@ -51,6 +52,7 @@ def load_text(category):
         >>> texts = load_text(category)
     """
 
+    check_setup()
     check_category(category)
     path = text_path_base.format(category)
     return load_file(path)
@@ -94,11 +96,12 @@ def load_index(category, date=False, tags=True, title=False):
 
         >>> load_index(category, date=True, tags=True, title=True)
     """
+    check_setup()
     check_category(category)
 
-    num_columns = date + tags + title + url
+    num_columns = date + tags + title
     if num_columns == 0:
-        raise ValueError('Set column arguments as True at least one [date, tags, title, url]')
+        raise ValueError('Set column arguments as True at least one [date, tags, title]')
 
     loaded = []
     if date:
@@ -111,9 +114,6 @@ def load_index(category, date=False, tags=True, title=False):
         loaded.append(loaded_tags)
     if title:
         path = title_path_base.format(category)
-        loaded.append(load_file(path))
-    if url:
-        path = url_path_base.format(category)
         loaded.append(load_file(path))
     grouped = [element for element in zip(*loaded)]
     return grouped
