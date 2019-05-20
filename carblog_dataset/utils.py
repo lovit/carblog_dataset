@@ -10,12 +10,17 @@ index_dir = os.path.abspath('../index/')
 num_categories = 27
 
 def load_list(path, dtype=None):
+    """
+    This function used to create carblog data with raw scraped data.
+    """
     with open(path, encoding='utf-8') as f:
         docs = [doc.strip() for doc in f]
     return docs
 
 def parse_date(s):
     """
+    This function used to create carblog data with raw scraped data.
+
     Usage
     -----
         >>> parse_date('2012-01-23')       # datetime.datetime(2012, 1, 23, 0, 0)
@@ -29,6 +34,8 @@ def parse_date(s):
 
 def parse_tags(line):
     """
+    This function used to create carblog data with raw scraped data.
+
     Usage
     -----
         >>> parse_tags("'자동차', '중고차', 'BMW'")   # ['자동차', '중고차', 'BMW']
