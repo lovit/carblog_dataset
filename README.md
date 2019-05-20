@@ -24,7 +24,7 @@ category = 7
 texts = load_text()
 ```
 
-To load meta information such as date, user generated tags, title, or url,
+To load meta information such as date, user generated tags, or title.
 
 ```python
 from carblog_dataset import load_index
@@ -32,5 +32,5 @@ from carblog_dataset import load_index
 category = 7
 index = load_index(category)
 # or
-index = load_index(category, date=True, tags=False, title=False, url=False)
+index = load_index(category, date=True, tags=False, title=False)
 ```

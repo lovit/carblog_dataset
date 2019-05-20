@@ -6,7 +6,6 @@ text_path_base = '%s/{}.txt' % text_dir
 date_path_base = '%s/{}.date' % index_dir
 tags_path_base = '%s/{}.tags' % index_dir
 title_path_base = '%s/{}.title' % index_dir
-url_path_base = '%s/{}.url' % index_dir
 
 def load_category_index():
     """
@@ -56,7 +55,7 @@ def load_text(category):
     path = text_path_base.format(category)
     return load_file(path)
 
-def load_index(category, date=False, tags=True, title=False, url=False):
+def load_index(category, date=False, tags=True, title=False):
     """
     Arguments
     ---------
@@ -73,15 +72,12 @@ def load_index(category, date=False, tags=True, title=False, url=False):
         If True, title information is included in return list.
         The value can be empty str
         Default is False.
-    url : Boolean
-        If True, url information is included in return list.
-        Default is False.
 
     Returns
     -------
     index : list of tuple
         Each tuple is corresponding a blog post
-        Column of tuple is (date, tags ,title, url).
+        Column of tuple is (date, tags ,title).
 
     Usage
     -----
@@ -95,6 +91,8 @@ def load_index(category, date=False, tags=True, title=False, url=False):
            (('',),),
            (('다이어리', '포토다이어리', '스냅스'),),
            (('메인보드', 'ECS', 'A55', 'MICROATX', '마이크로ATX', 'A55F-M2', 'IT·컴퓨터'),)]
+
+        >>> load_index(category, date=True, tags=True, title=True)
     """
     check_category(category)
 
