@@ -9,6 +9,18 @@ title_path_base = '%s/{}.title' % index_dir
 url_path_base = '%s/{}.url' % index_dir
 
 def load_category_index():
+    """
+    Returns
+    -------
+    list of str
+        Each str corresponds a query that used to scrap blog posts
+
+    Usage
+    -----
+        >>> from carblog_dataset import load_category_index
+        >>> load_category_index()
+    """
+
     path = '{}/../car_index'.format(installpath)
     with open(path, encoding='utf-8') as f:
         index = [doc.strip() for doc in f]
@@ -20,11 +32,70 @@ def load_file(path):
     return docs
 
 def load_text(category):
+    """
+    Arguments
+    ---------
+    category : int
+        Category index. Integer value between 0 and 26.
+
+    Returns
+    -------
+    texts : list of str
+        Each str is corresponding a blog post.
+        No sentence seperator.
+
+    Usage
+    -----
+        >>> from carblog_dataset import load_text
+
+        >>> category = 0
+        >>> texts = load_text(category)
+    """
+
     check_category(category)
     path = text_path_base.format(category)
     return load_file(path)
 
 def load_index(category, date=False, tags=True, title=False, url=False):
+    """
+    Arguments
+    ---------
+    category : int
+        Category index. Integer value between 0 and 26.
+    date : Boolean
+        If True, date information is included in return list.
+        Default is False.
+    tags : Boolean
+        If True, tags information is included in return list.
+        The value can be empty tuple of str
+        Default is True.
+    title : Boolean
+        If True, title information is included in return list.
+        The value can be empty str
+        Default is False.
+    url : Boolean
+        If True, url information is included in return list.
+        Default is False.
+
+    Returns
+    -------
+    index : list of tuple
+        Each tuple is corresponding a blog post
+        Column of tuple is (date, tags ,title, url).
+
+    Usage
+    -----
+        >>> from carblog_dataset import load_index
+
+        >>> category = 0
+        >>> load_index(category)[5:10]
+
+        $ [(('만화·애니',),),
+           (('굴비카드', '국민카드', '굴비엮기', '굴비신공', '굴비카드란', '굴비카드정의'),),
+           (('',),),
+           (('다이어리', '포토다이어리', '스냅스'),),
+           (('메인보드', 'ECS', 'A55', 'MICROATX', '마이크로ATX', 'A55F-M2', 'IT·컴퓨터'),)]
+    """
     check_category(category)
 
     num_columns = date + tags + title + url
