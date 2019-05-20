@@ -7,6 +7,7 @@ import re
 installpath = os.path.dirname(os.path.realpath(__file__))
 text_dir = os.path.abspath('../texts/')
 index_dir = os.path.abspath('../index/')
+num_categories = 27
 
 def load_list(path, dtype=None):
     with open(path, encoding='utf-8') as f:
