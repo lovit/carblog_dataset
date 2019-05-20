@@ -4,6 +4,7 @@ This dataset consists of blog posts that have been scraped from Naver blog which
 
 This dataset includes 27 sub-datasets that scraped with a query term (Each blog posts in a sub-dataset includes the query term). Query terms (term index) are below.
 
+| --- | --- | --- | --- | --- |
 | A6 (0) | BMW5 (1) | BMW (2) | K3 (3) | K5 (4) |
 | K7 (5) | QM3 (6) | 그랜저 (7) | 벤츠E (8) | 산타페 (9) |
 | 소나타 (10) | 스포티지 (11) | 싼타페 (12) | 쏘나타 (13) | 쏘렌토 (14) |
