@@ -74,7 +74,7 @@ def check_setup():
         raise RuntimeError(message)
     return True
 
-def setup(remove_zip=False, debug=False):
+def setup(remove_zip=False):
 
     def unzips(sources, filetype):
         for source in sources:
@@ -89,13 +89,9 @@ def setup(remove_zip=False, debug=False):
         return sorted(paths, key=lambda x:int(x.split(sep)[-1].split('.')[0]))
 
     text_sources = sort(glob('{}/*.txt.zip'.format(text_dir)))
-    if debug:
-        text_sources = text_sources[:4]
     unzips(text_sources, 'text')
 
     index_sources = sort(glob('{}/*.zip'.format(index_dir)))
-    if debug:
-        index_sources = index_sources[:4]
     unzips(index_sources, 'index')
 
     print('done')
