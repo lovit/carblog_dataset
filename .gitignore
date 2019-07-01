@@ -14,6 +14,7 @@ index/*.url
 index/*.title
 index/*.date
 index/*.tags
+zips/*.zip
 
 # Jupyter notebook
 .ipynb_checkpoints/
