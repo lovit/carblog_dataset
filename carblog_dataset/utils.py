@@ -5,12 +5,10 @@ import os
 import re
 import zipfile
 
-sep = os.path.sep
+from .config import text_dir
+from .config import index_dir
+from .config import num_categories
 
-installpath = os.path.dirname(os.path.realpath(__file__))
-text_dir = sep.join(installpath.split(sep)[:-1]) + '{0}texts{0}'.format(sep)
-index_dir = sep.join(installpath.split(sep)[:-1]) + '{0}index{0}'.format(sep)
-num_categories = 27
 
 def load_list(path, dtype=None):
     """

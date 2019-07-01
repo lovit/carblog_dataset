@@ -1,12 +1,7 @@
+from .config import installpath
+from .config import text_dir, index_dir, num_categories
 from .utils import check_setup
-from .utils import installpath
-from .utils import text_dir, index_dir, num_categories
 
-
-text_path_base = '%s/{}.txt' % text_dir
-date_path_base = '%s/{}.date' % index_dir
-tags_path_base = '%s/{}.tags' % index_dir
-title_path_base = '%s/{}.title' % index_dir
 
 def load_category_index():
     """
@@ -52,6 +47,7 @@ def load_text(category):
         >>> texts = load_text(category)
     """
 
+    text_path_base = '%s/{}.txt' % text_dir
     check_setup()
     check_category(category)
     path = text_path_base.format(category)
@@ -96,6 +92,11 @@ def load_index(category, date=False, tags=True, title=False):
 
         >>> load_index(category, date=True, tags=True, title=True)
     """
+
+    date_path_base = '%s/{}.date' % index_dir
+    tags_path_base = '%s/{}.tags' % index_dir
+    title_path_base = '%s/{}.title' % index_dir
+
     check_setup()
     check_category(category)
 
