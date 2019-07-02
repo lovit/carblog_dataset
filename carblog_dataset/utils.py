@@ -95,14 +95,14 @@ def fetch(category=None, remove_zip=True):
         name = text_url.split('/')[-1]
         text_source = '{}/{}'.format(text_dir, name)
         download_a_file(text_url, text_source)
-        print('downloaded {}'.format(name))
+        print('downloaded {}'.format(name), end=', ')
         unzip(text_source, text_dir)
         print('unziped {}'.format(name))
 
         name = index_url.split('/')[-1]
         index_source = '{}/{}'.format(index_dir, name)
         download_a_file(index_url, index_source)
-        print('downloaded {}'.format(name))
+        print('downloaded {}'.format(name), end=', ')
         unzip(index_source, index_dir)
         print('unziped {}'.format(name))
 
