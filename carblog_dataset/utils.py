@@ -3,12 +3,16 @@ from datetime import datetime
 from glob import glob
 import os
 import re
+import requests
 import zipfile
 
 from .config import text_dir
 from .config import index_dir
 from .config import num_categories
+from .config import index_url_form
+from .config import text_url_form
 
+sep = os.path.sep
 
 def load_list(path, dtype=None):
     """
@@ -72,26 +76,39 @@ def check_setup():
         raise RuntimeError(message)
     return True
 
-def setup(remove_zip=False):
-
-    def unzips(sources, filetype):
-        for source in sources:
-            source = os.path.abspath(source)
-            dest_dir, dest_name = source.rsplit(os.path.sep, 1)
-            unzip(source, dest_dir)
-            if remove_zip:
-                os.remove(source)
-            print('Unzip {} file {}'.format(filetype, source))
+def fetch(category=None, remove_zip=True):
 
     def sort(paths):
         return sorted(paths, key=lambda x:int(x.split(sep)[-1].split('.')[0]))
 
-    text_sources = sort(glob('{}/*.txt.zip'.format(text_dir)))
-    unzips(text_sources, 'text')
+    if isinstance(category, int):
+        text_sources = [text_url_form.format(category)]
+        index_sources = [index_url_form.format(category)]
+    else:
+        text_sources = [text_url_form.format(category) for category in range(num_categories)]
+        index_sources = [index_url_form.format(category) for category in range(num_categories)]
 
-    index_sources = sort(glob('{}/*.zip'.format(index_dir)))
-    unzips(index_sources, 'index')
+    text_sources = sort(text_sources)
+    index_sources = sort(index_sources)
 
+    for text_url, index_url in zip(text_sources, index_sources):
+        name = text_url.split('/')[-1]
+        text_source = '{}/{}'.format(text_dir, name)
+        download_a_file(text_url, text_source)
+        print('downloaded {}'.format(name))
+        unzip(text_source, text_dir)
+        print('unziped {}'.format(name))
+
+        name = index_url.split('/')[-1]
+        index_source = '{}/{}'.format(index_dir, name)
+        download_a_file(index_url, index_source)
+        print('downloaded {}'.format(name))
+        unzip(index_source, index_dir)
+        print('unziped {}'.format(name))
+
+        if remove_zip:
+            os.remove(text_source)
+            os.remove(index_source)
     print('done')
 
 def unzip(source, destination):
