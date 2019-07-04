@@ -97,14 +97,14 @@ def fetch(category=None, remove_zip=True):
         text_zip_path = '{}/{}'.format(zip_dir, name)
         download_a_file(text_url, text_zip_path)
         print('downloaded {}'.format(name), end=', ')
-        unzip(text_source, text_dir)
+        unzip(text_zip_path, text_dir)
         print('unziped {}'.format(name))
 
         name = index_url.split('/')[-1]
         index_zip_path = '{}/{}'.format(zip_dir, name)
         download_a_file(index_url, index_zip_path)
         print('downloaded {}'.format(name), end=', ')
-        unzip(index_source, index_dir)
+        unzip(index_zip_path, index_dir)
         print('unziped {}'.format(name))
 
         if remove_zip:
