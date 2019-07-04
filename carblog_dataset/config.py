@@ -10,5 +10,6 @@ sep = os.path.sep
 installpath = os.path.dirname(os.path.realpath(__file__))
 text_dir = sep.join(installpath.split(sep)[:-1]) + '{0}texts{0}'.format(sep)
 index_dir = sep.join(installpath.split(sep)[:-1]) + '{0}index{0}'.format(sep)
+zip_dir = sep.join(installpath.split(sep)[:-1]) + '{0}zips{0}'.format(sep)
 
 num_categories = 27
