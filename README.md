@@ -1,3 +1,7 @@
+## Carblog dataset analysis
+
+여기는 carblog dataset 을 제공하기 위한 repository 입니다. 이 데이터셋을 이용한 분석 사례는 [여기](https://github.com/lovit/carblog_analysis)에 있습니다.
+
 ## Carblog dataset
 
 이 데이터셋은 네이버 블로그에서 2010. 1. 1 부터 2015. 8. 1 까지 생성된 포스트를 수집한 데이터입니다. 총 27 개의 카테고리로 구성되어 있으며, 각 카테고리는 아래의 질의어가 포함되어 있습니다.
