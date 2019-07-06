@@ -54,7 +54,7 @@ fetch()
 
 fetch 함수를 이용하여 데이터를 다운로드 받고나면 `check_setup` 함수를 실행하면 True 가 return 됩니다.
 
-```
+```python
 from carblog_dataset import check_setup
 
 check_setup()
